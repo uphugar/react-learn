@@ -40,10 +40,15 @@ class App extends Component {
         {name:'Uday', age:29, hobbies:'My hobbies are cooking, listening to music'},
         {name:event.target.value, age:28},
         {name:'Vinay', age:19 }
-      ]
+      ],
+      showPersons:false
     })
   }
 
+  togglePersons = ()=>{
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons : !doesShow}); 
+  }
   userNameChangeHandler =(event) =>{
     this.setState({
       users:[
@@ -65,11 +70,14 @@ class App extends Component {
     return(
     <div className="App">
       <p>Hi, this is React app!</p>
-      <UserInput usernameHandler={this.userNameChangeHandler} username={this.state.users[0].username}/>
+      {/* <UserInput usernameHandler={this.userNameChangeHandler} username={this.state.users[0].username}/>
       <UserOutput name={this.state.users[0].name} email={this.state.users[0].email} username={this.state.users[0].username}/>
-      <UserOutput name={this.state.users[1].name} email={this.state.users[1].email} username={this.state.users[1].username}/>
+      <UserOutput name={this.state.users[1].name} email={this.state.users[1].email} username={this.state.users[1].username}/> */}
 
-      <button style={buttonStyle} onClick={this.switchNameHandler.bind(this,'Udaya P ')}>Switch Names</button>
+      <button style={buttonStyle} onClick={this.togglePersons}>Toggle Persons</button>
+      {
+        this.state.showPersons ? 
+        <div>
       <Person 
         name={this.state.persons[0].name}
         age={this.state.persons[0].age} 
@@ -82,6 +90,9 @@ class App extends Component {
         nameChanged={this.nameChangedHandler}
         >{this.state.persons[1].hobbies}
       </Person>
+      </div> :null
+      }
+      
       {/* <header className="App-header">
         
         <p>
