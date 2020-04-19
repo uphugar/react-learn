@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React,{Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person' 
@@ -11,12 +11,7 @@ class App extends Component {
   // example, it will replace persons with new object. also, otherdata object is lost.
   
   switchNameHandler =()=>{
-    setPersonState({
-      persons: [
-        {name: 'Uday P Hugar', age:29, hobbies:'cooking, listening to music'}
-      ],
-      otherdata: personState.otherdata
-    })
+    
   };
   state = {
     persons:[
@@ -27,8 +22,9 @@ class App extends Component {
   }
   render() { return(
     <div className="App">
-      
-      <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>{this.state.persons[0].hobbies}</Person>
+      <p>Hi, this is React app!</p>
+      <button onClick={this.switchNameHandler}>Switch Names</button>
+      <Person name={personState.persons[0].name} age={personState.persons[0].age}>{personState.persons[0].hobbies}</Person>
       {/* <header className="App-header">
         
         <p>
@@ -48,3 +44,5 @@ class App extends Component {
     // React.createElement('div', null,'im react app!' )
   )}
 }
+
+export default App;
