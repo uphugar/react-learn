@@ -10,41 +10,41 @@ class App extends Component {
   // for functional component, it will replace whole object. example, it will replace persons with new object. also, otherdata object is lost.
   state = {
     persons: [
-      { name: 'Uday', age: 29, hobbies: 'My hobbies are cooking, listening to music' },
-      { name: 'Vijay', age: 28 },
-      { name: 'Vinay', age: 19 }
+      { id:'iuhsddfiuh1',name: 'Uday', age: 29, hobbies: 'My hobbies are cooking, listening to music' },
+      { id:'sdjhfhf',name: 'Vijay', age: 28 },
+      { id:'kjsdfp2j',name: 'Vinod', age: 19 }
     ],
+    showPersons: false,
     users: [
       { username: 'udayh', email: 'uday@test.com', name: 'Uday' },
       { username: 'vijaykumar', email: 'vijay@test.com', name: 'Vijay' }
     ]
   }
 
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        { name: newName, age: 29, hobbies: 'My hobbies are cooking, listening to music' },
-        { name: 'Vijay', age: 28 },
-        { name: 'Vinay', age: 19 }
-      ]
-    });
-    // this.state.persons[0].name='Udaya P Hugar'
-  };
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex((p)=> { return p.id === id})
+    const person = {...this.state.persons[personIndex]};
 
-  nameChangedHandler = (event) => {
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] =person;
+
     this.setState({
-      persons: [
-        { name: 'Uday', age: 29, hobbies: 'My hobbies are cooking, listening to music' },
-        { name: event.target.value, age: 28 },
-        { name: 'Vinay', age: 19 }
-      ],
-      showPersons: false
+      persons: persons
     })
   }
 
   togglePersons = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow });
+  }
+
+  deletePersonHandler =(personIndex)=>{
+    //to get a copy of array. array is reference type and its better not to modify the source.
+    // const newPersons = this.state.persons.slice();
+    const newPersons =[...this.state.persons];
+    newPersons.splice(personIndex, 1);
+    this.setState({persons: newPersons});
   }
   userNameChangeHandler = (event) => {
     this.setState({
@@ -68,18 +68,14 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            click={() => this.switchNameHandler('Uday!')}
-          >{this.state.persons[0].hobbies}
-          </Person>
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            nameChanged={this.nameChangedHandler}
-          >{this.state.persons[1].hobbies}
-          </Person>
+          {this.state.persons.map((person,personIndex) => {
+            return <Person 
+            click ={() => this.deletePersonHandler(personIndex)} 
+            name={person.name} 
+            age={person.age} 
+            key={person.id}
+            nameChanged={(event) => this.nameChangedHandler(event, person.id)}/>
+          })}
         </div>
       )
     }
@@ -93,7 +89,7 @@ class App extends Component {
 
         <button style={buttonStyle} onClick={this.togglePersons}>Toggle Persons</button>
         {persons}
-        
+
       </div>
       //react converts html lookalike jsx code to React.createElement. react takes care of the compilation. 
       // React.createElement('div', null,'im react app!' )
