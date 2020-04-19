@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person' 
+import UserInput from './User/UserInput'
+import UserOutput from './User/UserOutput';
 
 class App extends Component {
   // use state hook provides state storage for functional components.
@@ -14,6 +16,10 @@ class App extends Component {
       {name:'Uday', age:29, hobbies:'My hobbies are cooking, listening to music'},
       {name:'Vijay', age:28},
       {name:'Vinay', age:19 }
+    ],
+    users :[
+      {username:'udayh', email:'uday@test.com', name:'Uday'},
+      {username:'vijaykumar', email:'vijay@test.com', name:'Vijay'}
     ]
   }
 
@@ -38,6 +44,14 @@ class App extends Component {
     })
   }
 
+  userNameChangeHandler =(event) =>{
+    this.setState({
+      users:[
+        {username:event.target.value, email:'uday@test.com', name:'Uday'},
+        {username:'vijaykumar', email:'vijay@test.com', name:'Vijay'}
+      ]
+    })
+  }
   //passing method reference in the props
   render() { 
     const buttonStyle ={
@@ -51,6 +65,10 @@ class App extends Component {
     return(
     <div className="App">
       <p>Hi, this is React app!</p>
+      <UserInput usernameHandler={this.userNameChangeHandler} username={this.state.users[0].username}/>
+      <UserOutput name={this.state.users[0].name} email={this.state.users[0].email} username={this.state.users[0].username}/>
+      <UserOutput name={this.state.users[1].name} email={this.state.users[1].email} username={this.state.users[1].username}/>
+
       <button style={buttonStyle} onClick={this.switchNameHandler.bind(this,'Udaya P ')}>Switch Names</button>
       <Person 
         name={this.state.persons[0].name}
