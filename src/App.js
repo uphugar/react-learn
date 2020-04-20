@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
+import Radium from 'radium';
 // import UserInput from './User/UserInput'
 // import UserOutput from './User/UserOutput';
 
@@ -61,8 +62,13 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid ',
       padding: '5px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover':{
+        backgroundColor:'lightgreen',
+        color: 'black'
+      }
     };
+    //using radium for pseudo selectors
 
     let persons = null;
     if (this.state.showPersons) {
@@ -79,6 +85,10 @@ class App extends Component {
         </div>
       )
       buttonStyle.backgroundColor='red';
+      buttonStyle[':hover'] ={
+        backgroundColor :'salmon',
+        color:'black'
+      }
     }
     const classes =[];
     if(this.state.persons.length<2)
@@ -107,4 +117,5 @@ class App extends Component {
   }
 }
 
-export default App;
+//Radium is styling package that provides pseudo selector and media queries along with inline styling
+export default Radium(App);
