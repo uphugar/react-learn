@@ -57,9 +57,9 @@ class App extends Component {
   //passing method reference in the props
   render() {
     const buttonStyle = {
-      backgroundColor: 'yellow',
+      backgroundColor: 'green',
       font: 'inherit',
-      border: '1px solid red',
+      border: '1px solid ',
       padding: '5px',
       cursor: 'pointer'
     };
@@ -78,11 +78,21 @@ class App extends Component {
           })}
         </div>
       )
+      buttonStyle.backgroundColor='red';
+    }
+    const classes =[];
+    if(this.state.persons.length<2)
+    {
+      classes.push('red');
+    } 
+    if(this.state.persons.length<1)
+    {
+      classes.push('bold')
     }
 
     return (
       <div className="App">
-        <p>Hi, this is React app!</p>
+        <p className={classes.join(' ')}>Hi, this is React app!</p>
         {/* <UserInput usernameHandler={this.userNameChangeHandler} username={this.state.users[0].username}/>
       <UserOutput name={this.state.users[0].name} email={this.state.users[0].email} username={this.state.users[0].username}/>
       <UserOutput name={this.state.users[1].name} email={this.state.users[1].email} username={this.state.users[1].username}/> */}
